@@ -1,0 +1,47 @@
+version: '3.8'
+networks:
+  node-network:
+    driver: bridge
+services:
+  mongodb:
+    image: mongodb/mongodb-community-server
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
+    restart: always
+    networks:
+      - node-network
+  server:
+    build:
+      context: ./dummyServer
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    links:
+      - mongodb
+    networks:
+      - node-network
+    depends_on:
+      - mongodb
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017/mydatabase
+      - PORT=8080
+
+  ui_server:
+    build:
+      context: ./monsters-rolodex
+      dockerfile: Dockerfile
+    container_name: ui_server
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_OPTIONS=--openssl-legacy-provider
+      - REACT_APP_SERVER_URL=http://localhost:8080
+    restart: always
+    links:
+      - server
+    networks:
+      - node-network
+    depends_on:
+      - server
