@@ -32,7 +32,6 @@ services:
     build:
       context: ./monsters-rolodex
       dockerfile: Dockerfile
-    container_name: ui_server
     ports:
       - "3000:3000"
     environment:
