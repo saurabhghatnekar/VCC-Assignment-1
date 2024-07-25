@@ -5,18 +5,29 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const User = require("./models/user.model");
 console.log("connecting to db");
-
+//load data.json
+const data = require('./data.json');
 // connect to mongo service docker compose
 console.log("MONGODB_URL", process.env.MONGODB_URL)
 mongoose.connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-}).then(() => {
+}).then((m) => {
+    //check collection
     console.log('connected to db');
-}).catch(err => {
-    console.error('connection error:', err);
+    User.find({}).then(users => {
+        if (users.length === 0) {
+            console.log('no users found');
+            User.insertMany(data)
+        }
+
+    }).catch(err => {
+        console.error('connection error:', err);
+    })
 });
+
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -38,7 +49,7 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

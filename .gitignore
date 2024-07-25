@@ -41,3 +41,4 @@ data/
 
 dummyServer/.env
 /dummyServer/node_modules/
+/data_loader/

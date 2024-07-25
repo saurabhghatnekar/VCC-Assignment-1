@@ -12,15 +12,17 @@ services:
     restart: always
     networks:
       - node-network
-  data_loader:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - mongodb
-    environment:
-      MONGO_URL: mongodb://mongodb:27017
-    restart: "no"
+    logging:
+        driver: none
+#  data_loader:
+#    build:
+#      context: ./data_loader
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - mongodb
+#    environment:
+#      - MONGODB_URL=mongodb://mongodb:27017/mydatabase
+#    restart: "no"
   server:
     build:
       context: ./dummyServer
@@ -33,7 +35,6 @@ services:
       - node-network
     depends_on:
       - mongodb
-      - data_loader
     environment:
       - MONGODB_URL=mongodb://mongodb:27017/mydatabase
       - PORT=8080
