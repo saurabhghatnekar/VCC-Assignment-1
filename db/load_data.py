@@ -238,7 +238,9 @@ from pymongo import MongoClient
 client = MongoClient('localhost', 27017)
 db = client['mydatabase']
 collection = db['users']
-# collection.insert_many(data)
+# only insert is empty
+if collection.count_documents({}) == 0:
+    collection.insert_many(data)
 
 # print the data
 
