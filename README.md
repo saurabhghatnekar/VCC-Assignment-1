@@ -6,6 +6,7 @@ This project consists of a MongoDB database, a Node.js server, and a React UI. T
 ## Table of Contents
 
 - [Project Overview](#project-overview)
+- [Need of Docker](#need-of-docker)
 - [Directory Structure](#directory-structure)
 - [Getting Started](#getting-started)
 - [Services](#services)
@@ -30,6 +31,38 @@ The project consists of three main components:
 1. A MongoDB service to store user data.
 2. A server built with Node.js and Express that connects to MongoDB, checks if the `User` collection is empty, and inserts data if no users are found.
 3. A UI server built with React to visualize and interact with the data from the server.
+
+## Need of Docker
+
+<img width="50%" src="images/docker_meme.png">
+
+Docker provides a solution to common problems in software development and deployment by ensuring consistency, portability, and efficiency. Let's understand this with a practical example.
+
+Scenario: Developing a Web Application
+Imagine you are developing a web application that consists of three main components:
+
+- A backend server (Node.js)
+- A frontend application (React)
+- A database (MongoDB)
+
+### Traditional Development and Deployment Challenges
+#### - Environment Mismatch
+Development Environment: The application works perfectly on your local machine, which runs Node.js 14, React 17, and MongoDB 4.4.
+Production Environment: The production server runs Node.js 12, React 16, and MongoDB 4.2. These version differences cause the application to break in production.
+#### - Dependency Management
+Each component has its own set of dependencies. Managing these dependencies manually on different machines can be cumbersome and error-prone.
+#### - Resource Overhead
+
+Running multiple applications on the same server can lead to conflicts and inefficient resource utilization.
+Deployment Complexity:
+
+Deploying updates to the application requires ensuring all dependencies and configurations are correctly set up on the production server. This process is often manual and error-prone.
+How Docker Solves These Challenges
+Docker Containers encapsulate each component of the application along with its dependencies, ensuring consistent environments across development, testing, and production.
+
+### How Docker Solves These Challenges
+Docker Containers encapsulate each component of the application along with its dependencies, ensuring consistent environments across development, testing, and production.
+Docker simplifies dependency management, resource utilization, and deployment processes, making it an essential tool for modern software development.
 
 ## Directory Structure
 
